@@ -1,0 +1,73 @@
+server:
+  port: 8080
+
+jwt:
+  secretKey: ${JWT_KEY}
+
+  access:
+    expiration: ${ACCESS_EXPIRATION} # 1시간 (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h))
+    header: Authorization
+
+  refresh:
+    expiration: ${REFRESH_EXPIRATION} # 2주 (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h) * 24L(h -> 하루) * 14(2주))
+    header: Authorization-refresh
+
+admin:
+  secret: ${ADMIN_SECRET}
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${SPRING_USERNAME} # 데이터베이스 커넥션 이름
+    password: ${SPRING_PASSWORD} # 데이터베이스 커넥션 비밀번호
+    url: ${URL}
+
+
+  jpa:
+    hibernate:
+      ddl-auto: none # 옵션은 필요에 따라 변경
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100 # 지연로딩 최적화를 위한 옵션
+        format_sql: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  redis:
+    life: 300
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+
+  output:
+    ansi:
+      enabled: always
+
+springdoc:
+  version: 1.6.8
+  swagger-ui:
+    # path: /swagger-ui.html
+    disable-swagger-default-url: false
+    config-url: /v3/api-docs/swagger-config
+    url: /v3/api-docs
+#  show-login-endpoint: true
+
+logging:
+  file:
+    name: ${user.dir}/log/server_log.log # slf4j를 사용할 때 생기는 로그 파일 경로
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
