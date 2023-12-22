@@ -39,7 +39,7 @@ public class MemoController {
     }
 
     @GetMapping("/daily/{weatherId}")
-    @Operation(summary = "하루 치 메모 반환", description = "하루치 메모 리스트를 반환하기 위한 API입니다. weather-controller에 있는 monthly API의 반환 값에 있는 weatherIzzd를 이용해서 조회합니다. ")
+    @Operation(summary = "하루 치 메모 반환", description = "하루치 메모 리스트를 반환하기 위한 API입니다. weather-controller에 있는 monthly API의 반환 값에 있는 weatherId를 이용해서 조회합니다. ")
     public ResponseDto<MemoDailyResponseDto> daily(@PathVariable Long weatherId,
             @AuthenticationPrincipal CustomUserDetails userDetails) {
 
